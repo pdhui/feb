@@ -1,0 +1,185 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>reveal.js</title>
+
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/black.css">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+</head>
+
+<body>
+<div class="reveal">
+	<div class="slides">
+		<section data-markdown>
+			<script type="text/template">
+				## 联合活动分享
+				<p>
+					<small>分享人 <a href="#">徐伟雄</a></small>
+				</p>
+			</script>
+		</section>
+		<section>
+			<section data-markdown>## 活动构建方式</section>
+			<section data-markdown>
+				### webpack + gulp 的多项目配置
+				- 约定大于配置（入口文件皆以*.entry.js结尾）
+				- 适用于多项目管理的构建
+				- 适用于多页面项目
+			</section>
+			<section data-markdown>
+				### 主要配置参数 (使用：gulp -x) 
+				- c: 开启是否自动构建service-worker
+				- s: 是否https
+				- p: 指定端口
+				- m: 多入口js文件时，指定是否抽取内容生成公共模块
+				- f: 指定构建目录
+				- b: 是否多个设备自动刷新
+
+				_其他的可查看gulp.js文件_
+			</section>
+		</section>
+		<section>
+			<section data-markdown>
+				## 活动组成模块
+
+		src
+		├─common
+		│	  ├─css
+		│      │    base.css
+		│	  │
+		│	  └─javascript
+		│      	  ajax.js
+		│      	  dom.js
+		│	        utils.js	
+		└─qunar4
+			│  index.html
+			│  qunar4.entry.js
+			│  
+			├─css
+			│      index.less
+			│      
+			├─images
+			│      
+			├─imgs
+			│      
+			├─js
+			│      ActivityStateManage.js
+			│      AwardsDialog.js
+			│      lotteryButton.js
+			│      native.js
+			│      services.js
+			│      tools.js
+			│      Track.js
+			│      
+			└─views			
+			`		index.js
+			`		templates.js
+		    
+			</section>
+			<section data-markdown>
+				* 抽奖
+
+				* 服务端交互
+
+				* 客户端交互
+
+				* 活动弹框
+
+				* 埋点
+
+				* 业务逻辑（包括但不限于游戏玩法）
+			</section>
+			<section data-markdown>
+				## 抽奖类型
+
+				* 一天抽一次
+				* 一个活动只能抽一次或多次
+
+				__使用localstorage存储抽奖次数，借以判断是否有抽奖机会__
+			</section>
+			<section data-markdown>
+				## 客户端交互
+
+				* 涉及客户端需要兼容的包括主题美化、应用商店、浏览器
+				* 链接必须带上turnTo = a | b | t区分不同客户端，和pkg表示包名
+				* 主要是下载、打开、流量提示、获取imei这几个接口
+				* 更新应用必须带上版本号以兼容旧版客户端
+				* 主题美化的获取imei接口是异步的，所以在抽奖或我的奖品这些重要的接口中需要在获取imei的回调中调用
+			</section>
+			<section data-markdown>
+				* 分享接口也不完善
+			</section>
+			<section data-markdown>
+				## 业务逻辑
+
+				* 封装在ActivityStateManage.js，使用状态机管理多种状态的变换
+				* 主要宗旨就是让用户下载，打开应用，增加激活量
+					- 在游戏环节中下载，提高用户页面停留时间
+					- 游戏结束并安装成功应用，打开了应用后才可跳转抽奖页面
+				* 对应用商店不做流量提醒，默认都是wifi，由该客户端自己判断处理。其他客户端有网络类型判断，且最好是在触发了下载回调后才可进入正式游戏环节
+				
+			</section>
+			<section data-markdown>
+				* 使用localstorage做存储时需要以活动目录名和活动id作为key，且使用json对象包含所有需要存储的值。可参考common目录里的utils.js。
+				* 做复杂的游戏时，使用的是phaser游戏框架
+			</section>
+		</section>
+		<section>
+			<section data-markdown>
+				## 使用service-worker做缓存
+
+				* 采用渐进增强方式，有就使用，没就不用，所以可以不用考虑兼容性
+				
+			</section>
+			<section data-markdown>
+			## 优点
+
+			* 不对现有应用进行太多变动就可使用。
+			* w3c推荐的缓存方案，替代appcache
+			* 类似网络代理，可方便的控制缓存资源
+			</section>
+		</section>
+	</div>
+</div>
+
+	<script src="lib/js/head.min.js"></script>
+	<script src="js/reveal.js"></script>
+
+	<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide',// none/fade/slide/convex/concave/zoom
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+	</script>
+</body>
+
+</html>
