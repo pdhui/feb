@@ -106,12 +106,14 @@
 				* 业务逻辑（包括但不限于游戏玩法）
 			</section>
 			<section data-markdown>
+				<script type="text/template">
 				## 抽奖类型
 
-				* 一天抽一次
-				* 一个活动只能抽一次或多次
+				* 一天抽一次 <!-- .element: class="fragment" data-fragment-index="1" -->
+				* 一个活动只能抽一次或多次 <!-- .element: class="fragment" data-fragment-index="2" -->
 
-				__使用localstorage存储抽奖次数，借以判断是否有抽奖机会__
+				__使用localstorage存储抽奖次数，借以判断是否有抽奖机会__ <!-- .element: class="fragment" data-fragment-index="3" -->
+				</script>
 			</section>
 			<section data-markdown>
 				## 客户端交互
@@ -124,6 +126,8 @@
 			</section>
 			<section data-markdown>
 				* 分享接口也不完善
+				
+				* 发现isAppinstalled在4.5版本的浏览器上会回调notifyprogress方法
 			</section>
 			<section data-markdown>
 				## 业务逻辑
@@ -139,13 +143,19 @@
 				* 使用localstorage做存储时需要以活动目录名和活动id作为key，且使用json对象包含所有需要存储的值。可参考common目录里的utils.js。
 				* 做复杂的游戏时，使用的是phaser游戏框架
 			</section>
+			<section data-markdown data-background-image="img/states.png" data-background-color="rgb(140, 109, 95)" data-background-size="60%">
+				<!--## 献上状态图-->
+				<!--![活动状态图](img/states.png)-->
+			</section>
 		</section>
 		<section>
 			<section data-markdown>
 				## 使用service-worker做缓存
 
 				* 采用渐进增强方式，有就使用，没就不用，所以可以不用考虑兼容性
-				
+				* 只能捕获作用域范围内的请求
+				* 网站必须启用https(本机开发环境使用localhost则无此限制)
+				* 最大作用域是service worker的js文件所在位置
 			</section>
 			<section data-markdown>
 			## 优点
@@ -153,6 +163,30 @@
 			* 不对现有应用进行太多变动就可使用。
 			* w3c推荐的缓存方案，替代appcache
 			* 类似网络代理，可方便的控制缓存资源
+			</section>
+			<section data-markdown>
+				<script type="text/template">
+			## 多种使用方式
+
+			* 先缓存，回退到网络，并添加到缓存 （动态缓存） 
+			* 先缓存，回退到网络，但不将新内容加入缓存（预缓存）<!-- .element: class="fragment" data-fragment-index="2" -->
+			* 先取缓存，并同时访问网络，有数据后再更新显示的缓存内容。<!-- .element: class="fragment" data-fragment-index="3" -->
+			* 缓存与网络同时请求，显示先获取的请求数据 <!-- .element: class="fragment" data-fragment-index="4" -->
+			* 先网络，回退到缓存（兼容无网情况）<!-- .element: class="fragment" data-fragment-index="5" -->
+			</script>
+			</section>
+			<section>
+				<h2>示例</h2>
+				<p>
+					<a href="example/service-worker/index.html" target="blank">demo</a>
+				</p>				
+			</section>
+			<section data-markdown>
+			## 参考资料
+
+			* https://w3c.github.io/ServiceWorker/
+			* https://github.com/delapuente/service-workers-101
+			* https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/?hl=zh-cn
 			</section>
 		</section>
 	</div>
@@ -168,7 +202,8 @@
 				progress: true,
 				history: true,
 				center: true,
-
+				fragments: true,
+				mouseWheel: true,
 				transition: 'slide',// none/fade/slide/convex/concave/zoom
 
 				// More info https://github.com/hakimel/reveal.js#dependencies

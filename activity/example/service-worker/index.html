@@ -1,0 +1,28 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>service worker</title>
+    <style>
+        img{
+            width : 100%;
+        }
+    </style>
+    <script src="res/test.js"></script>
+</head>
+<body>
+    <h1>service worker 测试例子</h1>
+    <button id="loadNew"> 加载图片</button>
+    <script src="register.js"></script>
+    <script>
+    document.querySelector('#loadNew').addEventListener('click',function(){
+      var img = new Image;
+      
+      img.src = '/mask.png';
+      
+      document.body.appendChild(img);
+    },false);
+  </script>
+</body>
+</html>
