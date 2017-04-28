@@ -1,4 +1,4 @@
-var CACHE_NAME = 'my-site-cache-v8';
+var CACHE_NAME = 'my-site-cache-v1';
 var urlsToCache = [
   'res/top.png',
   'res/test.js'

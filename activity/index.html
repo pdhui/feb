@@ -143,6 +143,11 @@
 				* 使用localstorage做存储时需要以活动目录名和活动id作为key，且使用json对象包含所有需要存储的值。可参考common目录里的utils.js。
 				* 做复杂的游戏时，使用的是phaser游戏框架
 			</section>
+			<section data-markdown>
+				## 额外补充(游戏部分)
+
+				* TexturePacker: 图片序列帧合并工具，可以生成图片和json文件供phaser使用
+			</section>
 			<section data-markdown data-background-image="img/states.png" data-background-color="rgb(140, 109, 95)" data-background-size="60%">
 				<!--## 献上状态图-->
 				<!--![活动状态图](img/states.png)-->
@@ -160,9 +165,14 @@
 			<section data-markdown>
 			## 优点
 
-			* 不对现有应用进行太多变动就可使用。
+			* 不对现有应用进行太多变动就可使用
 			* w3c推荐的缓存方案，替代appcache
 			* 类似网络代理，可方便的控制缓存资源
+			</section>
+			<section data-markdown>
+				## 生命周期
+
+				![service-worker生命周期](./img/service-worker.png)
 			</section>
 			<section data-markdown>
 				<script type="text/template">
@@ -175,8 +185,15 @@
 			* 先网络，回退到缓存（兼容无网情况）<!-- .element: class="fragment" data-fragment-index="5" -->
 			</script>
 			</section>
+			<section data-markdown>
+				## 比较好的生成工具(sw-precache)	
+
+				* GoogleChrome 团队出品	
+				* 灵活配置
+				* 可配合多种工具，如gulp、grup、webpack等辅助生成service-worker.js		
+			</section>
 			<section>
-				<h2>示例</h2>
+				<h2>简单示例</h2>
 				<p>
 					<a href="example/service-worker/index.html" target="blank">demo</a>
 				</p>				
@@ -187,6 +204,7 @@
 			* https://w3c.github.io/ServiceWorker/
 			* https://github.com/delapuente/service-workers-101
 			* https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/?hl=zh-cn
+			* https://segmentfault.com/a/1190000006061528
 			</section>
 		</section>
 	</div>
