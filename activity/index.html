@@ -41,6 +41,11 @@
 				- 约定大于配置（入口文件皆以*.entry.js结尾）
 				- 适用于多项目管理的构建
 				- 适用于多页面项目
+    1. 每个*.html文件都有个对应同名的*.entry.js
+    2. 构建工具会自动扫描对应的js文件，并注入进相应的html里      
+ 
+- 开发时运行命令：gulp dev-server -f=目录名
+- 部署时运行命令：gulp -f=目录名
 			</section>
 			<section data-markdown>
 				### 主要配置参数 (使用：gulp -x) 
@@ -144,11 +149,12 @@
 				* 做复杂的游戏时，使用的是phaser游戏框架
 			</section>
 			<section data-markdown>
-				## 额外补充(游戏部分)
-
+				## 额外补充
 				* TexturePacker: 图片序列帧合并工具，可以生成图片和json文件供phaser使用
+				* phaser: 基于pixi的游戏框架
+				* pixi：极致优化的渲染引擎
 			</section>
-			<section data-markdown data-background-image="img/states.png" data-background-color="rgb(140, 109, 95)" data-background-size="60%">
+			<section data-markdown data-background-image="img/states.png" data-background-color="rgb(19, 153, 234)" data-background-size="60%">
 				<!--## 献上状态图-->
 				<!--![活动状态图](img/states.png)-->
 			</section>
@@ -193,10 +199,11 @@
 				* 可配合多种工具，如gulp、grup、webpack等辅助生成service-worker.js		
 			</section>
 			<section>
-				<h2>简单示例</h2>
+				<h2>其他</h2>
 				<p>
-					<a href="example/service-worker/index.html" target="blank">demo</a>
-				</p>				
+					<a href="example/service-worker/index.html" target="blank">演示demo</a>
+				</p>
+				<p><a href="https://tangpo.gitbooks.io/fed/xing-neng-pian/service-worker.html" target="blank">skipWaiting与clients.claim对worker的影响</a></p>	
 			</section>
 			<section data-markdown>
 			## 参考资料
